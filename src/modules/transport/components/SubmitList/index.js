@@ -4,6 +4,12 @@ import Card from './Card'
 import { WingBlank, ActivityIndicator } from 'antd-mobile'
 
 class AcceptFlatList extends React.PureComponent {
+  constructor(props) {
+    super(props)
+    this.passTransport = props.passTransport(props.username)
+    this.denyTransport = props.denyTransport(props.username)
+  }
+
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
   }
@@ -20,12 +26,13 @@ class AcceptFlatList extends React.PureComponent {
   _keyExtractor = (item, index) => item._id
 
   _renderItem = ({ item, index }) => {
-    const acceptTransport = this.props.acceptTransport({
-      username: this.props.username,
-      transportId: item._id
-    })
     return (
-      <Card transport={item} index={index} acceptTransport={acceptTransport} />
+      <Card
+        transport={item}
+        index={index}
+        passTransport={this.passTransport}
+        denyTransport={this.denyTransport}
+      />
     )
   }
 

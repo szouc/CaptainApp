@@ -2,11 +2,11 @@ import React from 'react'
 import { View } from 'react-native'
 import {
   BackToMainButton,
-  CheckList
+  RefuseList
 } from '../../modules/transport/containers'
 import { WhiteSpace } from 'antd-mobile'
 
-class CheckScreen extends React.PureComponent {
+class RefuseScreen extends React.PureComponent {
   static navigationOptions = {
     title: '运输界面',
     headerLeft: <BackToMainButton />
@@ -16,10 +16,10 @@ class CheckScreen extends React.PureComponent {
     return (
       <View>
         <WhiteSpace size='xl' />
-        <CheckList />
+        <RefuseList />
       </View>
     )
   }
 }
 
-export default CheckScreen
+export default RefuseScreen

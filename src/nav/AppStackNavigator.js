@@ -6,10 +6,9 @@ import {
   MaintainAddScreen,
   MaintainFetchScreen,
   TransportAcceptScreen,
-  TransportActiveScreen,
-  TransportCheckScreen,
-  TransportListScreen,
-  TransportSubmitScreen
+  TransportAssignScreen,
+  TransportSubmitScreen,
+  TransportRefuseScreen
 } from '../screens'
 
 const AppStackNavigator = StackNavigator(
@@ -20,10 +19,9 @@ const AppStackNavigator = StackNavigator(
     MaintainAdd: { screen: MaintainAddScreen },
     MaintainFetch: { screen: MaintainFetchScreen },
     TransAccept: { screen: TransportAcceptScreen },
-    TransActive: { screen: TransportActiveScreen },
-    TransCheck: { screen: TransportCheckScreen },
-    TransList: { screen: TransportListScreen },
-    TransSubmit: { screen: TransportSubmitScreen }
+    TransAssign: { screen: TransportAssignScreen },
+    TransSubmit: { screen: TransportSubmitScreen },
+    TransRefuse: { screen: TransportRefuseScreen }
   },
   {
     initialRouteName: 'Main'

@@ -3,27 +3,31 @@ import { connect } from 'react-redux'
 import immutPropsToJS from '../../../utils/immutPropsToJS'
 import {
   toAcceptRequest,
-  toActiveRequest,
-  toCheckRequest,
-  toListRequest,
+  toAssignRequest,
+  toSubmitRequest,
+  toPublishRequest,
+  toRefuseRequest,
   initialRequest
 } from '../actions'
 import {
   assignCountSelector,
   acceptCountSelector,
-  checkCountSelector
+  refuseCountSelector,
+  submitCountSelector
 } from '../selectors'
 
 const mapStateToProps = (state, ownProps) => {
   const loading = state.getIn(['transport', 'screenLoading'])
   const assignCount = assignCountSelector(state)
   const acceptCount = acceptCountSelector(state)
-  const checkCount = checkCountSelector(state)
+  const refuseCount = refuseCountSelector(state)
+  const submitCount = submitCountSelector(state)
   return {
     username: state.getIn(['auth', 'username']),
     assignCount,
     acceptCount,
-    checkCount,
+    refuseCount,
+    submitCount,
     loading
   }
 }
@@ -33,14 +37,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     navToAccept: () => {
       dispatch(toAcceptRequest())
     },
-    navToActive: () => {
-      dispatch(toActiveRequest())
+    navToAssign: () => {
+      dispatch(toAssignRequest())
     },
-    navToCheck: () => {
-      dispatch(toCheckRequest())
+    navToSubmit: () => {
+      dispatch(toSubmitRequest())
     },
-    navToList: () => {
-      dispatch(toListRequest())
+    navToPublish: () => {
+      dispatch(toPublishRequest())
+    },
+    navToRefuse: () => {
+      dispatch(toRefuseRequest())
     },
     initialFetchTransports: username => {
       dispatch(initialRequest(username))

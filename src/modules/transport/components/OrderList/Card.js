@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card } from 'antd-mobile'
-import { TransportReviewList } from '../TransportCardList'
+import { TransportOrderList } from '../TransportCardList'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 class TransportCard extends React.PureComponent {
@@ -12,7 +12,7 @@ class TransportCard extends React.PureComponent {
     return (
       <Card>
         <Card.Header
-          title='运输记录'
+          title='序号'
           thumb={
             <Icon
               name='check-circle'
@@ -23,7 +23,7 @@ class TransportCard extends React.PureComponent {
           extra={this.props.index + 1}
         />
         <Card.Body>
-          <TransportReviewList transport={this.props.transport} />
+          <TransportOrderList transport={this.props.transport} />
         </Card.Body>
         <Card.Footer />
       </Card>

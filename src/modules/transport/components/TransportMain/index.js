@@ -21,37 +21,45 @@ class TransportMain extends Component {
 
   render() {
     const {
+      navToPublish,
+      navToSubmit,
+      navToAssign,
       navToAccept,
-      navToActive,
-      navToCheck,
-      navToList,
+      navToRefuse,
       assignCount,
-      checkCount,
-      acceptCount
+      acceptCount,
+      refuseCount,
+      submitCount
     } = this.props
     const gridData = [
       {
-        icon: 'check-square',
-        text: '接单',
+        icon: 'clipboard',
+        text: '发单',
+        action: navToPublish
+      },
+      {
+        icon: 'edit',
+        text: '审单',
+        badge: submitCount,
+        action: navToSubmit
+      },
+      {
+        icon: 'bus',
+        text: '未接',
         badge: assignCount,
+        action: navToAssign
+      },
+      {
+        icon: 'truck',
+        text: '已接',
+        badge: acceptCount,
         action: navToAccept
       },
       {
-        icon: 'upload',
-        text: '提交',
-        badge: acceptCount,
-        action: navToActive
-      },
-      {
-        icon: 'stack-overflow',
-        text: '待检',
-        badge: checkCount,
-        action: navToCheck
-      },
-      {
-        icon: 'list-alt',
-        text: '查询',
-        action: navToList
+        icon: 'ban',
+        text: '拒单',
+        badge: refuseCount,
+        action: navToRefuse
       }
     ]
     return (

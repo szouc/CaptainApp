@@ -1,12 +1,12 @@
-import { backRequest, toSubmitRequest } from '../actions'
+import { backRequest } from '../actions'
 
-import { ActiveList } from '../components'
+import { OrderList } from '../components'
 import { connect } from 'react-redux'
 import immutPropsToJS from '../../../utils/immutPropsToJS'
-import { acceptArraySelector } from '../selectors'
+import { assignArraySelector } from '../selectors'
 
 const mapStateToProps = (state, ownProps) => {
-  const transports = acceptArraySelector(state)
+  const transports = assignArraySelector(state)
   const loading = state.getIn(['transport', 'screenLoading'])
   return {
     username: state.getIn(['auth', 'username']),
@@ -19,13 +19,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     backToMain: username => {
       dispatch(backRequest(username))
-    },
-    NavToSubmit: transportId => () => {
-      dispatch(toSubmitRequest(transportId))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  immutPropsToJS(ActiveList)
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(immutPropsToJS(OrderList))

@@ -1,22 +1,23 @@
 import React from 'react'
+import { View } from 'react-native'
 import {
-  BackToActiveButton,
-  SubmitForm
+  BackToMainButton,
+  SubmitList
 } from '../../modules/transport/containers'
 import { WhiteSpace } from 'antd-mobile'
 
 class SubmitScreen extends React.PureComponent {
   static navigationOptions = {
-    title: '待提交列表',
-    headerLeft: <BackToActiveButton />
+    title: '运输界面',
+    headerLeft: <BackToMainButton />
   }
 
   render() {
     return (
-      <React.Fragment>
+      <View>
         <WhiteSpace size='xl' />
-        <SubmitForm />
-      </React.Fragment>
+        <SubmitList />
+      </View>
     )
   }
 }

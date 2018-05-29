@@ -2,6 +2,15 @@ import * as URL from '../../../settings/routes'
 import axios from '../../../settings/axiosInstance'
 import replaceAll from '../../../utils/replaceAll'
 
+const createTransport = (username, values) => {
+  const config = {
+    url: URL.CAPTAIN_TRANSPORT.replace(/:username/, username),
+    method: 'post',
+    data: values
+  }
+  return axios(config)
+}
+
 const getTransports = username => {
   const config = {
     url: URL.CAPTAIN_TRANSPORT.replace(/:username/, username),
@@ -28,7 +37,7 @@ const getAcceptTransports = username => {
   return axios(config)
 }
 
-const getCheckTransports = username => {
+const getSubmitTransports = username => {
   const config = {
     url: URL.CAPTAIN_TRANSPORT.replace(/:username/, username),
     method: 'get',
@@ -37,28 +46,11 @@ const getCheckTransports = username => {
   return axios(config)
 }
 
-const acceptTransport = (username, transportId) => {
-  const mapObj = {
-    ':username': username,
-    ':childId': transportId
-  }
+const getRefuseTransports = username => {
   const config = {
-    url: replaceAll(URL.CAPTAIN_TRANSPORT_ID_STATUS, mapObj),
-    method: 'put',
-    data: { status: 'accept' }
-  }
-  return axios(config)
-}
-
-const submitTransport = (username, transportId) => {
-  const mapObj = {
-    ':username': username,
-    ':childId': transportId
-  }
-  const config = {
-    url: replaceAll(URL.CAPTAIN_TRANSPORT_ID_STATUS, mapObj),
-    method: 'put',
-    data: { status: 'submit' }
+    url: URL.CAPTAIN_TRANSPORT.replace(/:username/, username),
+    method: 'get',
+    params: { captainStatus: 'deny' }
   }
   return axios(config)
 }
@@ -103,12 +95,12 @@ const updateTransport = (username, transportId, update) => {
 }
 
 export {
+  createTransport,
   getTransports,
   getAssignTransports,
   getAcceptTransports,
-  getCheckTransports,
-  acceptTransport,
-  submitTransport,
+  getSubmitTransports,
+  getRefuseTransports,
   passTransport,
   denyTransport,
   updateTransport

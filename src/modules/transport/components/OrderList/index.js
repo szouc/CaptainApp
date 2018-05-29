@@ -3,7 +3,7 @@ import { FlatList, BackHandler, View, Text } from 'react-native'
 import Card from './Card'
 import { WingBlank, ActivityIndicator } from 'antd-mobile'
 
-class ActiveFlatList extends React.PureComponent {
+class OrderFlatList extends React.PureComponent {
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
   }
@@ -19,12 +19,7 @@ class ActiveFlatList extends React.PureComponent {
 
   _keyExtractor = (item, index) => item._id
 
-  _renderItem = ({ item, index }) => {
-    const NavToSubmit = this.props.NavToSubmit(item._id)
-    return (
-      <Card transport={item} index={index} NavToSubmit={NavToSubmit} />
-    )
-  }
+  _renderItem = ({ item, index }) => <Card transport={item} index={index} />
 
   _getItemLayout = (data, index) => ({
     length: 300,
@@ -62,4 +57,4 @@ class ActiveFlatList extends React.PureComponent {
   }
 }
 
-export default ActiveFlatList
+export default OrderFlatList

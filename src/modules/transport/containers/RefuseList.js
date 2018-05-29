@@ -1,12 +1,12 @@
 import { backRequest } from '../actions'
 
-import { CheckList } from '../components'
+import { ReviewList } from '../components'
 import { connect } from 'react-redux'
 import immutPropsToJS from '../../../utils/immutPropsToJS'
-import { checkArraySelector } from '../selectors'
+import { refuseArraySelector } from '../selectors'
 
 const mapStateToProps = (state, ownProps) => {
-  const transports = checkArraySelector(state)
+  const transports = refuseArraySelector(state)
   const loading = state.getIn(['transport', 'screenLoading'])
   return {
     username: state.getIn(['auth', 'username']),
@@ -23,6 +23,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  immutPropsToJS(CheckList)
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(immutPropsToJS(ReviewList))

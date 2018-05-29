@@ -3,7 +3,7 @@ import { FlatList, BackHandler, View, Text } from 'react-native'
 import Card from './Card'
 import { WingBlank, ActivityIndicator } from 'antd-mobile'
 
-class AcceptFlatList extends React.PureComponent {
+class ReviewFlatList extends React.PureComponent {
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
   }
@@ -61,4 +61,4 @@ class AcceptFlatList extends React.PureComponent {
   }
 }
 
-export default AcceptFlatList
+export default ReviewFlatList

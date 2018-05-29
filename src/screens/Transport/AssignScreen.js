@@ -2,11 +2,11 @@ import React from 'react'
 import { View } from 'react-native'
 import {
   BackToMainButton,
-  FetchList
+  AssignList
 } from '../../modules/transport/containers'
 import { WhiteSpace } from 'antd-mobile'
 
-class FetchScreen extends React.PureComponent {
+class AssignScreen extends React.PureComponent {
   static navigationOptions = {
     title: '运输界面',
     headerLeft: <BackToMainButton />
@@ -16,10 +16,10 @@ class FetchScreen extends React.PureComponent {
     return (
       <View>
         <WhiteSpace size='xl' />
-        <FetchList />
+        <AssignList />
       </View>
     )
   }
 }
 
-export default FetchScreen
+export default AssignScreen
