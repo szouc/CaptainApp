@@ -1,5 +1,7 @@
 import React from 'react'
-import { InputItemField, DatePickerField } from '../../../shared'
+import { CompanyPickerField } from '../../../company/containers'
+import { ProductPickerField } from '../../../product/containers'
+import { VehiclePickerField } from '../../../vehicle/containers'
 import { reduxForm } from 'redux-form/immutable'
 import {
   List,
@@ -12,12 +14,10 @@ import {
 const validate = values => {
   const errors = {}
   const checkKeys = [
-    'fromName',
-    'toName',
-    'fromWeight',
-    'fromDate',
-    'toWeight',
-    'toDate'
+    'fromCompany',
+    'toCompany',
+    'product',
+    'vehicle'
   ]
   checkKeys.map(key => {
     if (!values.get(key)) {
@@ -30,22 +30,36 @@ const validate = values => {
 class TransportSubmitForm extends React.PureComponent {
   constructor(props) {
     super(props)
-    this.onUserSave = props.onSave({
-      username: props.username,
-      transportId: props.transportId
-    })
-    this.onUserSubmit = props.onSubmit({
-      username: props.username,
-      transportId: props.transportId
+    this.state = {
+      assigner: props.username,
+      assignerName: `${props.fullname}(${props.username})`
+    }
+  }
+
+  selectedVehicleName = (plateKey, engineKey) => value => {
+    return this.setState({
+      [plateKey]: this.props.vehicles[value].plate,
+      [engineKey]: this.props.vehicles[value].engine
     })
   }
 
-  setTextToInput = value => {
-    return value ? value.toString() : null
+  selectedCompanyName = (nameKey, addrKey) => value => {
+    return this.setState({
+      [nameKey]: this.props.companies[value].name,
+      [addrKey]: this.props.companies[value].addr
+    })
+  }
+
+  selectedProductName = (nameKey, specsKey) => value => {
+    console.tron.log(this.props)
+    return this.setState({
+      [nameKey]: this.props.products[value].name,
+      [specsKey]: this.props.products[value].specs
+    })
   }
 
   render() {
-    const { handleSubmit, saveValues } = this.props
+    const { handleSubmit } = this.props
     return (
       <WingBlank>
         <ActivityIndicator
@@ -54,57 +68,37 @@ class TransportSubmitForm extends React.PureComponent {
           animating={this.props.loading}
         />
         <List renderHeader={() => '添加运输内容'}>
-          <InputItemField
-            name='fromName'
-            multiline
-            editable={false}
+          <VehiclePickerField
+            name='vehicle'
+            label='指派车辆'
+            onChange={this.selectedVehicleName('plate', 'engine')}
+          />
+          <CompanyPickerField
+            name='fromCompany'
             label='出发公司'
+            onChange={this.selectedCompanyName('fromName', 'fromAddr')}
           />
-          <InputItemField
-            name='fromWeight'
-            type='number'
-            format={this.setTextToInput}
-            placeholder='请输入出发重量'
-            label='出发重量'
-          />
-          <DatePickerField
-            name='fromDate'
-            label='出发日期'
-            title='出发日期'
-            extra='请选择出发日期'
-          />
-        </List>
-        <List renderHeader={() => '添加运输内容'}>
-          <InputItemField
-            name='toName'
-            multiline
-            editable={false}
+          <CompanyPickerField
+            name='toCompany'
             label='到达公司'
+            onChange={this.selectedCompanyName('toName', 'toAddr')}
           />
-          <InputItemField
-            name='toWeight'
-            type='number'
-            format={this.setTextToInput}
-            placeholder='请输入到达重量'
-            label='到达重量'
-          />
-          <DatePickerField
-            name='toDate'
-            label='到达日期'
-            title='到达日期'
-            extra='请选择到达日期'
+          <ProductPickerField
+            name='product'
+            label='运输货物'
+            onChange={this.selectedProductName('productName', 'productSpecs')}
           />
         </List>
         <WhiteSpace />
-        <Button onClick={this.onUserSave(saveValues)}>暂存</Button>
-        <WhiteSpace />
-        <Button onClick={handleSubmit(this.onUserSubmit)}>提交</Button>
+        <Button onClick={handleSubmit(this.props.onSubmit(this.state))}>
+          提交
+        </Button>
       </WingBlank>
     )
   }
 }
 
 export default reduxForm({
-  form: 'TransportSubmitForm',
+  form: 'TransportCreateForm',
   validate
 })(TransportSubmitForm)

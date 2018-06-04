@@ -8,7 +8,8 @@ import {
   TransportAcceptScreen,
   TransportAssignScreen,
   TransportSubmitScreen,
-  TransportRefuseScreen
+  TransportRefuseScreen,
+  TransportPublishScreen
 } from '../screens'
 
 const AppStackNavigator = StackNavigator(
@@ -21,7 +22,8 @@ const AppStackNavigator = StackNavigator(
     TransAccept: { screen: TransportAcceptScreen },
     TransAssign: { screen: TransportAssignScreen },
     TransSubmit: { screen: TransportSubmitScreen },
-    TransRefuse: { screen: TransportRefuseScreen }
+    TransRefuse: { screen: TransportRefuseScreen },
+    TransPublish: { screen: TransportPublishScreen }
   },
   {
     initialRouteName: 'Main'

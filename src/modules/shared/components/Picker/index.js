@@ -7,7 +7,9 @@ class Picker extends Component {
     const { label, input, meta, ...rest } = this.props
     return (
       <AntPicker onOk={input.onChange} {...input} {...rest}>
-        <List.Item arrow='horizontal'>{label}</List.Item>
+        <List.Item arrow='horizontal' multipleLine wrap>
+          {label}
+        </List.Item>
       </AntPicker>
     )
   }
