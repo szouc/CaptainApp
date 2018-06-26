@@ -3,7 +3,7 @@ import ProfileCard from '../ProfileCard'
 import { View, StyleSheet } from 'react-native'
 import Carousel from '../Carousel'
 import { ErrorBoundary } from '../../../shared'
-import { WhiteSpace, WingBlank, ActivityIndicator } from 'antd-mobile'
+import { Button, WhiteSpace, WingBlank, ActivityIndicator } from 'antd-mobile'
 import { LogoutButton } from '../../../auth/containers'
 
 class UserMain extends Component {
@@ -28,6 +28,8 @@ class UserMain extends Component {
               <ProfileCard profile={this.props.profile} />
             </ErrorBoundary>
             <WhiteSpace size='xl' />
+            <Button onClick={this.props.toChangeScreen}>修改密码</Button>
+            <WhiteSpace size='lg' />
             <LogoutButton />
           </WingBlank>
         </View>
