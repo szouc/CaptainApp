@@ -1,37 +1,38 @@
-import { SubmitForm } from '../components'
+import { PublishForm } from '../components'
 import { connect } from 'react-redux'
 import immutPropsToJS from '../../../utils/immutPropsToJS'
-import { saveRequest, submitRequest, backToActiveRequest } from '../actions'
-import { transportCurrentSelector, saveFormValuesSelector } from '../selectors'
+import { backRequest, publishRequest } from '../actions'
 
 const mapStateToProps = (state, ownProps) => {
-  const initialValues = transportCurrentSelector(state)
   const loading = state.getIn(['transport', 'screenLoading'])
   const formLoading = state.getIn(['transport', 'formLoading'])
-  const saveValues = saveFormValuesSelector(state)
+  const companies = state.getIn(['entities', 'companies'])
+  const products = state.getIn(['entities', 'products'])
+  const vehicles = state.getIn(['entities', 'vehicles'])
   return {
     username: state.getIn(['auth', 'username']),
+    fullname: state.getIn(['auth', 'fullname']),
     loading,
-    formLoading,
-    saveValues,
-    initialValues
+    companies,
+    products,
+    vehicles,
+    formLoading
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    backToActive: () => {
-      dispatch(backToActiveRequest())
+    backToMain: username => {
+      dispatch(backRequest(username))
     },
-    onSave: ({ username, transportId }) => update => () => {
-      dispatch(saveRequest({ username, transportId, update }))
-    },
-    onSubmit: ({ username, transportId }) => update => {
-      dispatch(submitRequest({ username, transportId, update }))
+    onSubmit: username => state => values => {
+      const createValues = values.merge(state)
+      dispatch(publishRequest({ username, values: createValues }))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  immutPropsToJS(SubmitForm)
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(immutPropsToJS(PublishForm))

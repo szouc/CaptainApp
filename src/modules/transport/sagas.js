@@ -6,6 +6,7 @@ import { fromJS } from 'immutable'
 import { NavigationActions } from 'react-navigation'
 // import { resetSection } from 'redux-form'
 import { Toast } from 'antd-mobile'
+import { reset } from 'redux-form'
 
 import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
@@ -214,6 +215,7 @@ function * publishScreenEffect(scope, action, data = '', pagination = {}) {
         type: Type.PUBLISH_SUCCESS,
         payload: data.get('result')
       })
+      yield put(reset('TransportCreateForm'))
       Toast.success('发布成功！', 2)
       break
     default:

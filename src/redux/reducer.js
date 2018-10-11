@@ -8,6 +8,9 @@ import { reducer as userReducer } from '../modules/user'
 import { reducer as fuelReducer } from '../modules/fuel'
 import { reducer as maintainReducer } from '../modules/maintain'
 import { reducer as transportReducer } from '../modules/transport'
+import { reducer as companyReducer } from '../modules/company'
+import { reducer as productReducer } from '../modules/product'
+import { reducer as vehicleReducer } from '../modules/vehicle'
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -18,7 +21,10 @@ const rootReducer = combineReducers({
   user: userReducer,
   fuel: fuelReducer,
   maintain: maintainReducer,
-  transport: transportReducer
+  transport: transportReducer,
+  company: companyReducer,
+  product: productReducer,
+  vehicle: vehicleReducer
 })
 
 export default rootReducer

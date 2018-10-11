@@ -3,10 +3,13 @@ import { BackHandler } from 'react-native'
 import TransportSubmitForm from './Form'
 import { ErrorBoundary } from '../../../shared'
 import { ActivityIndicator } from 'antd-mobile'
-import moment from 'moment'
-import { evolve } from 'ramda'
 
 class TransportSubmitFormWithHardwareBack extends Component {
+  constructor(props) {
+    super(props)
+    this.onUserSubmit = props.onSubmit(props.username)
+  }
+
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
   }
@@ -16,19 +19,11 @@ class TransportSubmitFormWithHardwareBack extends Component {
   }
 
   onBackPress = () => {
-    this.props.backToActive()
+    this.props.backToMain(this.props.username)
     return true
   }
 
   render() {
-    const { username, saveValues, initialValues, onSave, onSubmit } = this.props
-    const formatDate = date => moment(date).toDate()
-    const TransformDate = {
-      fromDate: formatDate,
-      toDate: formatDate
-    }
-    const formatDateInitialValues = evolve(TransformDate, initialValues)
-
     return (
       <React.Fragment>
         <ActivityIndicator
@@ -38,13 +33,13 @@ class TransportSubmitFormWithHardwareBack extends Component {
         />
         <ErrorBoundary>
           <TransportSubmitForm
-            initialValues={formatDateInitialValues}
-            username={username}
-            transportId={initialValues._id}
-            onSubmit={onSubmit}
-            onSave={onSave}
-            saveValues={saveValues}
+            username={this.props.username}
+            fullname={this.props.fullname}
+            onSubmit={this.onUserSubmit}
             loading={this.props.formLoading}
+            companies={this.props.companies}
+            products={this.props.products}
+            vehicles={this.props.vehicles}
           />
         </ErrorBoundary>
       </React.Fragment>

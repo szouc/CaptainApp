@@ -5,7 +5,7 @@ import {
 } from '../../../settings/schema'
 import { fromJS } from 'immutable'
 
-async function createTransport(username, values) {
+async function createTransport({ username, values }) {
   const response = await Request.createTransport(username, values)
   if (response.data.ok) {
     const data = response.data.result
